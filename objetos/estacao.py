@@ -10,9 +10,10 @@ class Estacao:
 
     def __init__(self, nome_formal=None):
         self.formal = nome_formal
+
         self.vizinhos = Distancias().vizinhos[nome_formal]
         self.linha = Distancias().linhas[nome_formal]
-        
+
         self.f = 0
         self.g = 0
         self.h = 0
@@ -26,8 +27,8 @@ class Estacao:
             return self.g
 
     def get_distancia_real(self, origem):
-        real_linha = int(origem.formal[1:])
-        real_coluna = int(self.formal[1:])
+        real_linha = int(origem.formal[1:]) - 1
+        real_coluna = int(self.formal[1:]) - 1
 
         distancia_real_normal     = Distancias().reais[real_linha][real_coluna]
         distancia_real_transposta = Distancias().reais[real_coluna][real_linha]

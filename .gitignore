@@ -1,2 +1,5 @@
 .idea
 .vscode
+.fleet
+**/__pycache__/**
+*.pyc
