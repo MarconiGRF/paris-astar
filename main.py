@@ -28,7 +28,7 @@ def calcular_valores_heuristicos(fronteira, atual, origem, destino):
         no.f = valor_g + valor_h
 
 
-def run_astar(origem, destino):
+def caminho_via_astar(origem, destino):
     atual = None
 
     visitados = []
@@ -41,6 +41,8 @@ def run_astar(origem, destino):
 
     while len(fronteira) != 0 or atual != destino:
         calcular_valores_heuristicos(fronteira, atual, origem, destino)
+
+        Utils.print_fronteira(fronteira)
         fronteira.sort(key=by_f)
 
         atual = fronteira.pop(0)
@@ -68,4 +70,4 @@ if __name__ == '__main__':
     o = input("Qual a origem?")
     d = input("Qual o destino?")
 
-    run_astar(o, d)
+    caminho_via_astar(o, d)

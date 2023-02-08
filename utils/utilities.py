@@ -46,8 +46,15 @@ class Utils:
         print(f'\nO tempo médio vai ser de {Utils.calcular_tempo_total(visitados)}.')
 
     @classmethod
+    def print_fronteira(cls, fronteira):
+        print(f'\nA fronteira atual é [', end='')
+        for no in fronteira[:1]:
+            print(str(no) + ', ', end='')
+        print(f'{fronteira[len(fronteira) - 1]}]')
+
+    @classmethod
     def print_final(cls, visitados, atual):
-        print('O caminho final é o seguinte: ')
+        print('\nO caminho final é o seguinte: ')
         acumulador = []
 
         for (index, no) in enumerate(visitados[:-1]):
