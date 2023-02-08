@@ -1,4 +1,5 @@
 from objetos.estacao import Estacao
+from utils.utilities import Utils
 
 
 def by_f(no):
@@ -54,6 +55,9 @@ def run_astar(origem, destino):
     for no in visitados:
         print(str(no) + ' -> ', end='')
     print(str(atual))
+
+    visitados.append(atual)
+    print(f'\nO tempo médio vai ser de {Utils.calcular_tempo_total(visitados)}.')
 
 
 if __name__ == '__main__':

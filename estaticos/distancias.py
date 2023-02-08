@@ -62,6 +62,6 @@ class Distancias:
             "E10": ["amarela"],
             "E11": ["vermelha"],
             "E12": ["verde"],
-            "E13": ["vermelha", "verde"],
+            "E13": ["verde", "vermelha"],
             "E14": ["verde"],
         }
