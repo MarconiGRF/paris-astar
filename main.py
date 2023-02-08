@@ -42,8 +42,8 @@ def caminho_via_astar(origem, destino):
     while len(fronteira) != 0 or atual != destino:
         calcular_valores_heuristicos(fronteira, atual, origem, destino)
 
-        Utils.print_fronteira(fronteira)
         fronteira.sort(key=by_f)
+        Utils.print_fronteira(fronteira)
 
         atual = fronteira.pop(0)
 

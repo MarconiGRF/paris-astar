@@ -48,7 +48,7 @@ class Utils:
     @classmethod
     def print_fronteira(cls, fronteira):
         print(f'\nA fronteira atual é [', end='')
-        for no in fronteira[:1]:
+        for no in fronteira[:-1]:
             print(str(no) + ', ', end='')
         print(f'{fronteira[len(fronteira) - 1]}]')
 
