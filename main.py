@@ -18,18 +18,6 @@ def backtrack(visitados, atual):
     return visitados[len(visitados) - 1]
 
 
-def print_caminho(visitados, atual):
-    print('O caminho final é o seguinte: ')
-    for no in visitados:
-        print(str(no) + ' -> ', end='')
-    print(str(atual))
-
-
-def print_tempo(visitados, atual):
-    visitados.append(atual)
-    print(f'\nO tempo médio vai ser de {Utils.calcular_tempo_total(visitados)}.')
-
-
 def calcular_valores_heuristicos(fronteira, atual, origem, destino):
     for no in fronteira:
         if atual:
@@ -57,7 +45,9 @@ def run_astar(origem, destino):
 
         atual = fronteira.pop(0)
 
-        caminho_sem_saida = len(atual.vizinhos) == 1 and len(visitados) != 0 and Estacao(atual.vizinhos[0]) == visitados[len(visitados) - 1]
+        caminho_sem_saida = len(atual.vizinhos) == 1 and \
+                            len(visitados) != 0 and \
+                            Estacao(atual.vizinhos[0]) == visitados[len(visitados) - 1]
         if atual == destino:
             break
         elif caminho_sem_saida:
@@ -71,8 +61,7 @@ def run_astar(origem, destino):
                     visitados.append(atual)
                 limpar_fronteira(fronteira, visitados)
 
-    print_caminho(visitados, atual)
-    print_tempo(visitados, atual)
+    Utils.print_final(visitados, atual)
 
 
 if __name__ == '__main__':

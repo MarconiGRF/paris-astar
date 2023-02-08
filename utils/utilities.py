@@ -40,3 +40,24 @@ class Utils:
         tempo_baldeacao = cls.calcular_baldeacao(visitados)
         return cls.time_format(tempo_segundos + tempo_baldeacao)
 
+    @classmethod
+    def print_tempo(cls, visitados, atual):
+        visitados.append(atual)
+        print(f'\nO tempo médio vai ser de {Utils.calcular_tempo_total(visitados)}.')
+
+    @classmethod
+    def print_final(cls, visitados, atual):
+        print('O caminho final é o seguinte: ')
+        acumulador = []
+
+        for (index, no) in enumerate(visitados[:-1]):
+            if visitados[index + 1].formal in no.vizinhos:
+                acumulador.append(visitados[index])
+        acumulador.append(visitados[len(visitados) - 1])
+        acumulador.append(atual)
+
+        for no in acumulador[:-1]:
+            print(str(no) + ' -> ', end='')
+        print(str(acumulador[len(acumulador) - 1]))
+
+        cls.print_tempo(acumulador, atual)
