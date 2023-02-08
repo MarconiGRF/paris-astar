@@ -8,9 +8,36 @@ def by_f(no):
 
 def limpar_fronteira(fronteira, visitados):
     for no in fronteira:
-        removivel_tal_qual_pendrive = -1
         if no in visitados:
             fronteira.remove(no)
+
+
+def backtrack(visitados, atual):
+    if atual in visitados:
+        visitados.remove(atual)
+    return visitados[len(visitados) - 1]
+
+
+def print_caminho(visitados, atual):
+    print('O caminho final é o seguinte: ')
+    for no in visitados:
+        print(str(no) + ' -> ', end='')
+    print(str(atual))
+
+
+def print_tempo(visitados, atual):
+    visitados.append(atual)
+    print(f'\nO tempo médio vai ser de {Utils.calcular_tempo_total(visitados)}.')
+
+
+def calcular_valores_heuristicos(fronteira, atual, origem, destino):
+    for no in fronteira:
+        if atual:
+            valor_g = no.calcular_g(atual, atual.g)
+        else:
+            valor_g = no.calcular_g(origem, 0)
+        valor_h = no.calcular_h(destino)
+        no.f = valor_g + valor_h
 
 
 def run_astar(origem, destino):
@@ -25,23 +52,16 @@ def run_astar(origem, destino):
     fronteira.append(origem)
 
     while len(fronteira) != 0 or atual != destino:
-        for no in fronteira:
-            if atual:
-                valor_g = no.calcular_g(atual, atual.g)
-            else:
-                valor_g = no.calcular_g(origem, 0)
-            valor_h = no.calcular_h(destino)
-            no.f = valor_g + valor_h
-
+        calcular_valores_heuristicos(fronteira, atual, origem, destino)
         fronteira.sort(key=by_f)
+
         atual = fronteira.pop(0)
 
+        caminho_sem_saida = len(atual.vizinhos) == 1 and len(visitados) != 0 and Estacao(atual.vizinhos[0]) == visitados[len(visitados) - 1]
         if atual == destino:
             break
-        elif len(atual.vizinhos) == 1 and len(visitados) != 0 and Estacao(atual.vizinhos[0]) == visitados[len(visitados) - 1]: #situacao em que chegamos a um beco sem saida
-            if atual in visitados:
-                visitados.remove(atual)
-            atual = visitados[len(visitados) - 1]
+        elif caminho_sem_saida:
+            atual = backtrack(visitados, atual)
         else:
             fronteira = []
             for no in atual.vizinhos:
@@ -51,17 +71,12 @@ def run_astar(origem, destino):
                     visitados.append(atual)
                 limpar_fronteira(fronteira, visitados)
 
-    print('O caminho final é o seguinte: ')
-    for no in visitados:
-        print(str(no) + ' -> ', end='')
-    print(str(atual))
-
-    visitados.append(atual)
-    print(f'\nO tempo médio vai ser de {Utils.calcular_tempo_total(visitados)}.')
+    print_caminho(visitados, atual)
+    print_tempo(visitados, atual)
 
 
 if __name__ == '__main__':
-    origem = input("Qual a origem?")
-    destino = input("Qual o destino?")
+    o = input("Qual a origem?")
+    d = input("Qual o destino?")
 
-    run_astar(origem, destino)
+    run_astar(o, d)
